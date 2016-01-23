@@ -4,9 +4,19 @@
   
     
     <entry>
-      <title></title>
-      <url>http://sunjunblack.github.io/2016/01/22/2016-01-22/</url>
-      <content type="html"><![CDATA[<h1 id="Mac_u4E0B_u642D_u5EFAHexo_u535A_u5BA2"><a href="#Mac_u4E0B_u642D_u5EFAHexo_u535A_u5BA2" class="headerlink" title="Mac下搭建Hexo博客"></a>Mac下搭建Hexo博客</h1><h2 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h2><h3 id="u5B89_u88C5node-js"><a href="#u5B89_u88C5node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><p>1.安装 homebrew</p>
+      <title><![CDATA[设计模式－单类]]></title>
+      <url>http://sunjunblack.github.io/2016/01/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8D%E5%8D%95%E7%B1%BB/</url>
+      <content type="html"><![CDATA[<h2 id="u6A21_u5F0F_u5B9A_u4E49"><a href="#u6A21_u5F0F_u5B9A_u4E49" class="headerlink" title="模式定义"></a>模式定义</h2><p>确保一个类在系统中只有一个实例，并且提供一个全局的访问点。</p>
+<h2 id="u6A21_u5F0F_u7ED3_u6784"><a href="#u6A21_u5F0F_u7ED3_u6784" class="headerlink" title="模式结构"></a>模式结构</h2><h2 id="u6A21_u5F0F_u5B9E_u73B0"><a href="#u6A21_u5F0F_u5B9E_u73B0" class="headerlink" title="模式实现"></a>模式实现</h2><p>方式一</p>
+<pre><code>
+</code></pre><h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[使用Hexo搭建博客]]></title>
+      <url>http://sunjunblack.github.io/2016/01/23/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
+      <content type="html"><![CDATA[<p><a href="https://hexo.io" target="_blank" rel="external">Hexo官网</a><br><a href="https://github.com/wzpan/hexo-theme-freemind/" target="_blank" rel="external">Freemind主题</a></p>
+<h2 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h2><h3 id="u5B89_u88C5node-js"><a href="#u5B89_u88C5node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><p>1.安装 homebrew</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSkL https://raw.github.com/Homebrew/homebrew/go/install)</span>"</span></span><br></pre></td></tr></table></figure>
 <p>2.安装 node.js</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install <span class="keyword">node</span><span class="identifier"></span><span class="title"></span></span><br></pre></td></tr></table></figure>
@@ -20,7 +30,15 @@
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
 <p>7.安装测试Server</p>
 <figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">server</span></span><br></pre></td></tr></table></figure>
-<h2 id="u914D_u7F6E"><a href="#u914D_u7F6E" class="headerlink" title="配置"></a>配置</h2>]]></content>
+<h2 id="u914D_u7F6E"><a href="#u914D_u7F6E" class="headerlink" title="配置"></a>配置</h2><h3 id="github_u914D_u7F6E"><a href="#github_u914D_u7F6E" class="headerlink" title="github配置"></a>github配置</h3><p>修改主_config.yml</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repository</span>: git<span class="variable">@github</span>.<span class="attribute">com</span>:xxxxxx/yyyyy.github.io.git</span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
+<h3 id="u8BC4_u8BBA"><a href="#u8BC4_u8BBA" class="headerlink" title="评论"></a>评论</h3><p>修改theme文件夹中_config.yml</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">duoshuo_shortname: <span class="function"><span class="title">xxxx</span><span class="params">(多说二级域名)</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="u5E38_u7528_u547D_u4EE4"><a href="#u5E38_u7528_u547D_u4EE4" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="u542F_u52A8_u6D4B_u8BD5_u670D_u52A1_u5668"><a href="#u542F_u52A8_u6D4B_u8BD5_u670D_u52A1_u5668" class="headerlink" title="启动测试服务器"></a>启动测试服务器</h3><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">server</span> </span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<h3 id="u7F16_u8BD1_u9759_u6001_u9875_u9762"><a href="#u7F16_u8BD1_u9759_u6001_u9875_u9762" class="headerlink" title="编译静态页面"></a>编译静态页面</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">generate</span> </span><br><span class="line">hexo <span class="keyword">g</span></span><br></pre></td></tr></table></figure>
+<h3 id="u53D1_u5E03_u9875_u9762"><a href="#u53D1_u5E03_u9875_u9762" class="headerlink" title="发布页面"></a>发布页面</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">hexo</span> deploy </span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<h3 id="u65B0_u5EFA_u6587_u7AE0"><a href="#u65B0_u5EFA_u6587_u7AE0" class="headerlink" title="新建文章"></a>新建文章</h3><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">[layout]</span> &lt;title&gt;</span><br></pre></td></tr></table></figure>
+]]></content>
     </entry>
     
     <entry>
