@@ -8,9 +8,8 @@
   
   <meta name="description" content="模式定义确保一个类在系统中只有一个实例，并且提供一个全局的访问点。
 模式结构
-模式实现方式一
-
-总结">
+模式实现懒汉式(非线程安全)
+123456789101112public class Singleton &amp;#123;	private static Singleton instance;	private Singleto">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -113,9 +112,61 @@
 
 	  <h2 id="u6A21_u5F0F_u5B9A_u4E49"><a href="#u6A21_u5F0F_u5B9A_u4E49" class="headerlink" title="模式定义"></a>模式定义</h2><p>确保一个类在系统中只有一个实例，并且提供一个全局的访问点。</p>
 <h2 id="u6A21_u5F0F_u7ED3_u6784"><a href="#u6A21_u5F0F_u7ED3_u6784" class="headerlink" title="模式结构"></a>模式结构</h2><p><img src="http://7xqe0b.com1.z0.glb.clouddn.com/FtHkjI1wfjogNWHmkE4yVb9kZDqF" alt=""></p>
-<h2 id="u6A21_u5F0F_u5B9E_u73B0"><a href="#u6A21_u5F0F_u5B9E_u73B0" class="headerlink" title="模式实现"></a>模式实现</h2><p>方式一</p>
-<pre><code>
-</code></pre><h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2>	  
+<h2 id="u6A21_u5F0F_u5B9E_u73B0"><a href="#u6A21_u5F0F_u5B9E_u73B0" class="headerlink" title="模式实现"></a>模式实现</h2><p><strong>懒汉式(非线程安全)</strong></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line"><span class="keyword">	private</span><span class="keyword"> static</span> Singleton instance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">	private</span><span class="function"> Singleton(</span><span class="function">)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">	public</span><span class="keyword"> static</span> Singleton<span class="function"> getSingleton(</span><span class="function">)</span> &#123;</span><br><span class="line">       <span class="function"> if(</span>instance == null<span class="function">)</span>&#123;</span><br><span class="line">           <span class="instruction"> instance </span>=<span class="instruction"> new </span>Singleton(<span class="function">)</span>;</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="instruction"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>特点：<br>延迟生成对象，但在多线程下调用getSingleton()的时候，会创建多个对象,非线程安全</p>
+</blockquote>
+<p><strong>懒汉式(线程安全)</strong></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line"><span class="keyword">	private</span><span class="keyword"> static</span> Singleton instance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">	private</span><span class="function"> Singleton(</span><span class="function">)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">	public</span><span class="keyword"> static</span><span class="keyword"> static</span> Singleton<span class="function"> getSingleton(</span><span class="function">)</span> &#123;</span><br><span class="line">       <span class="function"> if(</span>instance == null<span class="function">)</span>&#123;</span><br><span class="line">           <span class="instruction"> instance </span>=<span class="instruction"> new </span>Singleton(<span class="function">)</span>;</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="instruction"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>特点：<br>线程安全，方法使用同步，执行效率不高效.因为在任何时候只有一个线程调用getSingleton()方法，但同步操作只需要在第一次调用的时候才需要。</p>
+</blockquote>
+<p><strong>双重检验锁方式</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">        	<span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">        		<span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123; <span class="comment">//Double Checked</span></span><br><span class="line">        		instance = <span class="keyword">new</span> Singleton(); </span><br><span class="line">        		&#125;</span><br><span class="line">        	&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>特点：</p>
+<ol>
+<li>使用两次检查instance == null，避免多线程同时访问同步块外检查，产生多个实例；</li>
+<li>通过volatile定义变量避免jvm指令重排。原因是<br>instance = new Singleton()并非原子操作；执行时会产生三个事件。<br> －a. 给instance分配内存<br> －b. 调用 Singleton 的构造函数来初始化成员变量<br> －c. 将instance对象指向分配的内存空间（执行完这步后 instance 为非 null ）<br>JVM 的即时编译器中存在指令重排序的优化。上面b,c步骤执行顺序是不能保证的。多线程执行时,线程一现执行c并未执行b,线程二通过校验判断直接返回instance，返回错误的结果。</li>
+</ol>
+</blockquote>
+<p><strong>饿汉式</strong></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span><span class="keyword"> final</span> Singleton<span class="instruction"> instance </span>=<span class="instruction"> new </span>Singleton(<span class="function">)</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span><span class="function"> Singleton(</span><span class="function">)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> Singleton<span class="function"> getSingleton(</span><span class="function">)</span> &#123;</span><br><span class="line">       <span class="instruction"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>特点：<br>单例会在加载类后一开始就被初始化，即使客户端没有调用 getInstance()方法；无法通过getInstance()方法参数动态创建单类</p>
+</blockquote>
+<p><strong>静态内部类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123; </span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.INSTANCE; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>特点：<br>仍然使用JVM本身机制保证了线程安全问题；由于 SingletonHolder 是私有的，除了 getInstance() 之外没有办法访问它，因此它是懒汉式的；同时读取实例的时候不会进行同步，没有性能缺陷；也不依赖 JDK 版本;但通过反射机制也能产生多个实例。</p>
+</blockquote>
+<p><strong>枚举</strong></p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">enum</span> <span class="title">Singleton</span>&#123; </span></span><br><span class="line">	<span class="constant">INSTANCE</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>特点：<br>通过Singleton.INSTANCE来访问实例。枚举默认就是线程安全的，所以不需要担心double checked locking，而且还能防止反序列化导致重新创建新的对象</p>
+</blockquote>
+<p>##模式优缺点</p>
+<blockquote>
+<p>优点:</p>
+<ol>
+<li>节约了系统资源。由于系统中只存在一个实例对象，对与一些需要频繁创建和销毁对象的系统而言，单例模式无疑节约了系统资源和提高了系统的性能</li>
+<li>因为单例类封装了它的唯一实例，所以它可以严格控制客户怎样以及何时访问它</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>由于单例模式中没有抽象层，因此单例类的扩展有很大的困难</li>
+<li>单例类的职责过重，在一定程度上违背了“单一职责原则”</li>
+</ol>
+</blockquote>
+<p>##使用场景<br>下列几种情况可以使用单例模式</p>
+<ol>
+<li>系统只需要一个实例对象，如系统要求提供一个唯一的序列号生成器，或者需要考虑资源消耗太大而只允许创建一个对象(如对象池)</li>
+<li>客户调用类的单个实例只允许使用一个公共访问点，除了该公共访问点，不能通过其他途径访问该实例</li>
+</ol>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>单例模式有五种写法：懒汉、饿汉、双重检验锁、静态内部类、枚举。<br>一般情况下直接使用饿汉式就好了，如果明确要求要懒加载（lazy initialization）会倾向于使用静态内部类，如果涉及到反序列化创建对象时会试着使用枚举的方式来实现单例。</p>
+<p>##参考<br><a href="http://www.cnblogs.com/chenssy/p/3170538.html" target="_blank" rel="external">设计模式读书笔记—–单例模式</a><br><a href="https://github.com/biezhi/jb/blob/master/designpatterns/singleton.md" target="_blank" rel="external">如何正确地写出单例模式</a></p>
+	  
 	</div>
 
 	<div>
