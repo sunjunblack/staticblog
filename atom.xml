@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://sunjunblack.github.io/"/>
-  <updated>2016-01-23T04:32:15.000Z</updated>
+  <updated>2016-01-23T08:31:16.000Z</updated>
   <id>http://sunjunblack.github.io/</id>
   
   <author>
@@ -18,10 +18,11 @@
     <title><![CDATA[设计模式－单类]]></title>
     <link href="http://sunjunblack.github.io/2016/01/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8D%E5%8D%95%E7%B1%BB/"/>
     <id>http://sunjunblack.github.io/2016/01/23/设计模式－单类/</id>
-    <published>2016-01-23T04:32:15.000Z</published>
-    <updated>2016-01-23T04:32:15.000Z</updated>
+    <published>2016-01-23T08:31:16.000Z</published>
+    <updated>2016-01-23T08:31:16.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u6A21_u5F0F_u5B9A_u4E49"><a href="#u6A21_u5F0F_u5B9A_u4E49" class="headerlink" title="模式定义"></a>模式定义</h2><p>确保一个类在系统中只有一个实例，并且提供一个全局的访问点。</p>
-<h2 id="u6A21_u5F0F_u7ED3_u6784"><a href="#u6A21_u5F0F_u7ED3_u6784" class="headerlink" title="模式结构"></a>模式结构</h2><h2 id="u6A21_u5F0F_u5B9E_u73B0"><a href="#u6A21_u5F0F_u5B9E_u73B0" class="headerlink" title="模式实现"></a>模式实现</h2><p>方式一</p>
+<h2 id="u6A21_u5F0F_u7ED3_u6784"><a href="#u6A21_u5F0F_u7ED3_u6784" class="headerlink" title="模式结构"></a>模式结构</h2><p><img src="/media/14535378737072.jpg" alt=""></p>
+<h2 id="u6A21_u5F0F_u5B9E_u73B0"><a href="#u6A21_u5F0F_u5B9E_u73B0" class="headerlink" title="模式实现"></a>模式实现</h2><p>方式一</p>
 <pre><code>
 </code></pre><h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2>]]></content>
     <summary type="html">
