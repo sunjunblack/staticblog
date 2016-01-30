@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式－原型Prototype | sunjunblack&#39;blog</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="模式定义原型模式就是用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象
+模式结构
+模式实现抽象原型接口
+123456public interface Prototype&amp;#123;	public Object clone();&amp;#125;```	具体原型角色
+public class C">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="设计模式－原型Prototype"/>
+  <meta property="og:site_name" content="sunjunblack&#39;blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">sunjunblack&#39;blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> 设计模式－原型Prototype</h1>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="u6A21_u5F0F_u5B9A_u4E49"><a href="#u6A21_u5F0F_u5B9A_u4E49" class="headerlink" title="模式定义"></a>模式定义</h2><p>原型模式就是用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象</p>
+<h2 id="u6A21_u5F0F_u7ED3_u6784"><a href="#u6A21_u5F0F_u7ED3_u6784" class="headerlink" title="模式结构"></a>模式结构</h2><p><img src="http://7xqe0b.com1.z0.glb.clouddn.com/FunoyWbGpFgP_XM-tcBHznoRyKVq" alt=""></p>
+<h2 id="u6A21_u5F0F_u5B9E_u73B0"><a href="#u6A21_u5F0F_u5B9E_u73B0" class="headerlink" title="模式实现"></a>模式实现</h2><p>抽象原型接口</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">Prototype</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">clone</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line">```	</span><br><span class="line"></span><br><span class="line">具体原型角色</span><br></pre></td></tr></table></figure>
+<p>public class ConcretePrototypeA implements Prototype {<br>    public Prototype clone(){<br>        //最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了<br>        Prototype prototype = new ConcretePrototypeA();<br>        return prototype;<br>    }<br>}</p>
+<p>public class ConcretePrototypeB implements Prototype {<br>    public Prototype clone(){<br>        //最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了<br>        Prototype prototype = new ConcretePrototypeB();<br>        return prototype;<br>    }<br>}<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">客户端角色</span><br></pre></td></tr></table></figure></p>
+<p>public class Client {<br>    /**</p>
+<pre><code> * 持有需要使用的原型接口对象
+ */
+private Prototype prototype;
+/**
+ * 构造方法，传入需要使用的原型接口对象
+ */
+public Client(Prototype prototype){
+    this.prototype = prototype;
+}
+public void operation(Prototype example){
+    //需要创建原型接口的对象
+    Prototype copyPrototype = prototype.clone();
+
+}
+</code></pre><p>}<br>```</p>
+<p>注：也可通过java克隆方法实现</p>
+<h2 id="u6A21_u5F0F_u4F18_u7F3A_u70B9"><a href="#u6A21_u5F0F_u4F18_u7F3A_u70B9" class="headerlink" title="模式优缺点"></a>模式优缺点</h2><blockquote>
+<p>优点</p>
+<ol>
+<li>如果创建新的对象比较复杂时，可以利用原型模式简化对象的创建过程，同时也能够提高效率。</li>
+<li>可以使用深克隆保持对象的状态。</li>
+<li>原型模式提供了简化的创建结构。<br>缺点<br>1.在实现深克隆的时候可能需要比较复杂的代码</li>
+</ol>
+</blockquote>
+<h2 id="u4F7F_u7528_u573A_u666F"><a href="#u4F7F_u7528_u573A_u666F" class="headerlink" title="使用场景"></a>使用场景</h2><ol>
+<li>如果创建新对象成本较大，我们可以利用已有的对象进行复制来获得。</li>
+<li>如果系统要保存对象的状态，而对象的状态变化很小，或者对象本身占内存不大的时候，也可以使用原型模式配合备忘录模式来应用。相反，如果对象的状态变化很大，或者对象占用的内存很大，那么采用状态模式会比原型模式更好。</li>
+<li>需要避免使用分层次的工厂类来创建分层次的对象，并且类的实例对象只有一个或很少的几个组合状态，通过复制原型对象得到新实例可能比使用构造函数创建一个新实例更加方便</li>
+</ol>
+<h2 id="u4F7F_u7528_u603B_u7ED3"><a href="#u4F7F_u7528_u603B_u7ED3" class="headerlink" title="使用总结"></a>使用总结</h2><ol>
+<li>原型模式向客户隐藏了创建对象的复杂性。客户只需要知道要创建对象的类型，然后通过请求就可以获得和该对象一模一样的新对象，无须知道具体的创建过程。</li>
+<li>克隆分为浅克隆和深克隆两种。</li>
+<li>我们虽然可以利用原型模式来获得一个新对象，但有时对象的复制可能会相当的复杂，比如深克隆</li>
+</ol>
+<h2 id="u53C2_u8003_u6587_u732E"><a href="#u53C2_u8003_u6587_u732E" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://www.cnblogs.com/chenssy/p/3313339.html" target="_blank" rel="external">设计模式读书笔记—–原型模式</a><br><a href="http://www.cnblogs.com/java-my-life/archive/2012/04/11/2439387.html" target="_blank" rel="external">《JAVA与模式》之原型模式</a></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+        
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/01/24/设计模式－单类/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2016/01/30/设计模式－原型Prototype/" data-title="设计模式－原型Prototype" data-url="http://sunjunblack.github.io/2016/01/30/设计模式－原型Prototype/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2016-01-30 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/设计模式/">设计模式<span>3</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u6A21_u5F0F_u5B9A_u4E49"><span class="toc-article-text">模式定义</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u6A21_u5F0F_u7ED3_u6784"><span class="toc-article-text">模式结构</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u6A21_u5F0F_u5B9E_u73B0"><span class="toc-article-text">模式实现</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u6A21_u5F0F_u4F18_u7F3A_u70B9"><span class="toc-article-text">模式优缺点</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u4F7F_u7528_u573A_u666F"><span class="toc-article-text">使用场景</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u4F7F_u7528_u603B_u7ED3"><span class="toc-article-text">使用总结</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u53C2_u8003_u6587_u732E"><span class="toc-article-text">参考文献</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'sunjunblack' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2016 John Doe
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

@@ -106,8 +106,8 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
-			<div class="date"> 2016-01-24 </div>
-			<div class="article-title"><a href="/2016/01/24/设计模式－创建者Builder/" >设计模式－建造者Builder</a></div>						
+			<div class="date"> 2016-01-30 </div>
+			<div class="article-title"><a href="/2016/01/30/设计模式－原型Prototype/" >设计模式－原型Prototype</a></div>						
 		</h3>
 	
 
@@ -116,44 +116,52 @@
   <div class="row">
 	
 	
-		<h2 id="u6A21_u5F0F_u5B9A_u4E49"><a href="#u6A21_u5F0F_u5B9A_u4E49" class="headerlink" title="模式定义"></a>模式定义</h2><p>建造者模式将一个复杂对象的构建与表示分离，使得同样的构建过程可以创建不同的表示</p>
-<h2 id="u6A21_u5F0F_u7ED3_u6784"><a href="#u6A21_u5F0F_u7ED3_u6784" class="headerlink" title="模式结构"></a>模式结构</h2><p><img src="http://7xqe0b.com1.z0.glb.clouddn.com/Fiy9lW7wKQWmUv3prSHG0HKsVdzO" alt=""></p>
-<h2 id="u6A21_u5F0F_u5B9E_u73B0"><a href="#u6A21_u5F0F_u5B9E_u73B0" class="headerlink" title="模式实现"></a>模式实现</h2><p>Product：产品角色。一个具体的产品对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span></span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"return Product"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Builder：建造者接口。它声明为创建一个Product对象的各个部件指定的抽象接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Builder</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">BuildPartA</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">BuildPartB</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ConcreteBuilder：具体建造者。实现抽象接口，构建和装配各个部件。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteBuilder</span> <span class="keyword">implements</span> <span class="title">Builder</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildPartA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Building Product's part A1"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildPartB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Building Product's part B1"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">GetResult</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Product's Building has finished"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Product();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Director：指挥者。构建一个使用Builder接口的对象。它主要是用于创建一个复杂的对象，它主要有两个作用，一是：隔离了客户与对象的生产过程，二是：负责控制产品对象的生产过程。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Director</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Product <span class="title">Construct</span><span class="params">(ConcreteBuilder cb)</span></span>&#123;</span><br><span class="line">		cb.BuildPartA();</span><br><span class="line">		cb.BuildPartB();</span><br><span class="line">		<span class="keyword">return</span> cb.GetResult();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>客户端调用</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">BuilderDemo</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) </span>&#123;</span><br><span class="line">        Director d=<span class="keyword">new</span> Director();</span><br><span class="line">        ConcreteBuilder cb=<span class="keyword">new</span> ConcreteBuilder();</span><br><span class="line">        Product p=d.Construct(cb);</span><br><span class="line">        System.<span class="keyword">out</span>.println(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+		<h2 id="u6A21_u5F0F_u5B9A_u4E49"><a href="#u6A21_u5F0F_u5B9A_u4E49" class="headerlink" title="模式定义"></a>模式定义</h2><p>原型模式就是用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象</p>
+<h2 id="u6A21_u5F0F_u7ED3_u6784"><a href="#u6A21_u5F0F_u7ED3_u6784" class="headerlink" title="模式结构"></a>模式结构</h2><p><img src="http://7xqe0b.com1.z0.glb.clouddn.com/FunoyWbGpFgP_XM-tcBHznoRyKVq" alt=""></p>
+<h2 id="u6A21_u5F0F_u5B9E_u73B0"><a href="#u6A21_u5F0F_u5B9E_u73B0" class="headerlink" title="模式实现"></a>模式实现</h2><p>抽象原型接口</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">Prototype</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">clone</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line">```	</span><br><span class="line"></span><br><span class="line">具体原型角色</span><br></pre></td></tr></table></figure>
+<p>public class ConcretePrototypeA implements Prototype {<br>    public Prototype clone(){<br>        //最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了<br>        Prototype prototype = new ConcretePrototypeA();<br>        return prototype;<br>    }<br>}</p>
+<p>public class ConcretePrototypeB implements Prototype {<br>    public Prototype clone(){<br>        //最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了<br>        Prototype prototype = new ConcretePrototypeB();<br>        return prototype;<br>    }<br>}<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">客户端角色</span><br></pre></td></tr></table></figure></p>
+<p>public class Client {<br>    /**</p>
+<pre><code> * 持有需要使用的原型接口对象
+ */
+private Prototype prototype;
+/**
+ * 构造方法，传入需要使用的原型接口对象
+ */
+public Client(Prototype prototype){
+    this.prototype = prototype;
+}
+public void operation(Prototype example){
+    //需要创建原型接口的对象
+    Prototype copyPrototype = prototype.clone();
+
+}
+</code></pre><p>}<br>```</p>
+<p>注：也可通过java克隆方法实现</p>
 <h2 id="u6A21_u5F0F_u4F18_u7F3A_u70B9"><a href="#u6A21_u5F0F_u4F18_u7F3A_u70B9" class="headerlink" title="模式优缺点"></a>模式优缺点</h2><blockquote>
-<p>优点:</p>
+<p>优点</p>
 <ol>
-<li>将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，使得我们能够更加精确的控制复杂对象的产生过程 </li>
-<li>将产品的创建过程与产品本身分离开来，可以使用相同的创建过程来得到不同的产品。也就说细节依赖抽象。</li>
-<li>每一个具体建造者都相对独立，而与其他的具体建造者无关，因此可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象</li>
-</ol>
-<p>缺点:</p>
-<ol>
-<li>建造者模式所创建的产品一般具有较多的共同点，其组成部分相似，如果产品之间的差异性很大，则不适合使用建造者模式，因此其使用范围受到一定的限制</li>
-<li>如果产品的内部变化复杂，可能会导致需要定义很多具体建造者类来实现这种变化，导致系统变得很庞大</li>
+<li>如果创建新的对象比较复杂时，可以利用原型模式简化对象的创建过程，同时也能够提高效率。</li>
+<li>可以使用深克隆保持对象的状态。</li>
+<li>原型模式提供了简化的创建结构。<br>缺点<br>1.在实现深克隆的时候可能需要比较复杂的代码</li>
 </ol>
 </blockquote>
 <h2 id="u4F7F_u7528_u573A_u666F"><a href="#u4F7F_u7528_u573A_u666F" class="headerlink" title="使用场景"></a>使用场景</h2><ol>
-<li>需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员属性。</li>
-<li>隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品。</li>
+<li>如果创建新对象成本较大，我们可以利用已有的对象进行复制来获得。</li>
+<li>如果系统要保存对象的状态，而对象的状态变化很小，或者对象本身占内存不大的时候，也可以使用原型模式配合备忘录模式来应用。相反，如果对象的状态变化很大，或者对象占用的内存很大，那么采用状态模式会比原型模式更好。</li>
+<li>需要避免使用分层次的工厂类来创建分层次的对象，并且类的实例对象只有一个或很少的几个组合状态，通过复制原型对象得到新实例可能比使用构造函数创建一个新实例更加方便</li>
 </ol>
 <h2 id="u4F7F_u7528_u603B_u7ED3"><a href="#u4F7F_u7528_u603B_u7ED3" class="headerlink" title="使用总结"></a>使用总结</h2><ol>
-<li>建造者模式是将一个复杂对象的创建过程给封装起来，客户只需要知道可以利用对象名或者类型就能够得到一个完整的对象实例，而不需要关心对象的具体创建过程。</li>
-<li>建造者模式将对象的创建过程与对象本身隔离开了，使得细节依赖于抽象，符合依赖倒置原则。可以使用相同的创建过程来创建不同的产品对象。</li>
+<li>原型模式向客户隐藏了创建对象的复杂性。客户只需要知道要创建对象的类型，然后通过请求就可以获得和该对象一模一样的新对象，无须知道具体的创建过程。</li>
+<li>克隆分为浅克隆和深克隆两种。</li>
+<li>我们虽然可以利用原型模式来获得一个新对象，但有时对象的复制可能会相当的复杂，比如深克隆</li>
 </ol>
-<h2 id="u53C2_u8003_u6587_u732E"><a href="#u53C2_u8003_u6587_u732E" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://www.cnblogs.com/chenssy/p/3307787.html" target="_blank" rel="external">设计模式读书笔记—–建造者模式</a></p>
+<h2 id="u53C2_u8003_u6587_u732E"><a href="#u53C2_u8003_u6587_u732E" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://www.cnblogs.com/chenssy/p/3313339.html" target="_blank" rel="external">设计模式读书笔记—–原型模式</a><br><a href="http://www.cnblogs.com/java-my-life/archive/2012/04/11/2439387.html" target="_blank" rel="external">《JAVA与模式》之原型模式</a></p>
 
 	
 	</div>
-  <a type="button" href="/2016/01/24/设计模式－创建者Builder/#more" class="btn btn-default more">阅读此文</a>
+  <a type="button" href="/2016/01/30/设计模式－原型Prototype/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -161,8 +169,8 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
-			<div class="date"> 2016-01-23 </div>
-			<div class="article-title"><a href="/2016/01/23/设计模式－单类/" >设计模式－单类Singleton</a></div>						
+			<div class="date"> 2016-01-24 </div>
+			<div class="article-title"><a href="/2016/01/24/设计模式－单类/" >设计模式－单类Singleton</a></div>						
 		</h3>
 	
 
@@ -229,7 +237,62 @@
 
 	
 	</div>
-  <a type="button" href="/2016/01/23/设计模式－单类/#more" class="btn btn-default more">阅读此文</a>
+  <a type="button" href="/2016/01/24/设计模式－单类/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2016-01-24 </div>
+			<div class="article-title"><a href="/2016/01/24/设计模式－创建者Builder/" >设计模式－建造者Builder</a></div>						
+		</h3>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="u6A21_u5F0F_u5B9A_u4E49"><a href="#u6A21_u5F0F_u5B9A_u4E49" class="headerlink" title="模式定义"></a>模式定义</h2><p>建造者模式将一个复杂对象的构建与表示分离，使得同样的构建过程可以创建不同的表示</p>
+<h2 id="u6A21_u5F0F_u7ED3_u6784"><a href="#u6A21_u5F0F_u7ED3_u6784" class="headerlink" title="模式结构"></a>模式结构</h2><p><img src="http://7xqe0b.com1.z0.glb.clouddn.com/Fiy9lW7wKQWmUv3prSHG0HKsVdzO" alt=""></p>
+<h2 id="u6A21_u5F0F_u5B9E_u73B0"><a href="#u6A21_u5F0F_u5B9E_u73B0" class="headerlink" title="模式实现"></a>模式实现</h2><p>Product：产品角色。一个具体的产品对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span></span>&#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"return Product"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Builder：建造者接口。它声明为创建一个Product对象的各个部件指定的抽象接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Builder</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">BuildPartA</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">BuildPartB</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ConcreteBuilder：具体建造者。实现抽象接口，构建和装配各个部件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteBuilder</span> <span class="keyword">implements</span> <span class="title">Builder</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildPartA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Building Product's part A1"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildPartB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Building Product's part B1"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">GetResult</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Product's Building has finished"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Product();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Director：指挥者。构建一个使用Builder接口的对象。它主要是用于创建一个复杂的对象，它主要有两个作用，一是：隔离了客户与对象的生产过程，二是：负责控制产品对象的生产过程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Director</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Product <span class="title">Construct</span><span class="params">(ConcreteBuilder cb)</span></span>&#123;</span><br><span class="line">		cb.BuildPartA();</span><br><span class="line">		cb.BuildPartB();</span><br><span class="line">		<span class="keyword">return</span> cb.GetResult();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端调用</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">BuilderDemo</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>) </span>&#123;</span><br><span class="line">        Director d=<span class="keyword">new</span> Director();</span><br><span class="line">        ConcreteBuilder cb=<span class="keyword">new</span> ConcreteBuilder();</span><br><span class="line">        Product p=d.Construct(cb);</span><br><span class="line">        System.<span class="keyword">out</span>.println(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u6A21_u5F0F_u4F18_u7F3A_u70B9"><a href="#u6A21_u5F0F_u4F18_u7F3A_u70B9" class="headerlink" title="模式优缺点"></a>模式优缺点</h2><blockquote>
+<p>优点:</p>
+<ol>
+<li>将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，使得我们能够更加精确的控制复杂对象的产生过程 </li>
+<li>将产品的创建过程与产品本身分离开来，可以使用相同的创建过程来得到不同的产品。也就说细节依赖抽象。</li>
+<li>每一个具体建造者都相对独立，而与其他的具体建造者无关，因此可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象</li>
+</ol>
+<p>缺点:</p>
+<ol>
+<li>建造者模式所创建的产品一般具有较多的共同点，其组成部分相似，如果产品之间的差异性很大，则不适合使用建造者模式，因此其使用范围受到一定的限制</li>
+<li>如果产品的内部变化复杂，可能会导致需要定义很多具体建造者类来实现这种变化，导致系统变得很庞大</li>
+</ol>
+</blockquote>
+<h2 id="u4F7F_u7528_u573A_u666F"><a href="#u4F7F_u7528_u573A_u666F" class="headerlink" title="使用场景"></a>使用场景</h2><ol>
+<li>需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员属性。</li>
+<li>隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品。</li>
+</ol>
+<h2 id="u4F7F_u7528_u603B_u7ED3"><a href="#u4F7F_u7528_u603B_u7ED3" class="headerlink" title="使用总结"></a>使用总结</h2><ol>
+<li>建造者模式是将一个复杂对象的创建过程给封装起来，客户只需要知道可以利用对象名或者类型就能够得到一个完整的对象实例，而不需要关心对象的具体创建过程。</li>
+<li>建造者模式将对象的创建过程与对象本身隔离开了，使得细节依赖于抽象，符合依赖倒置原则。可以使用相同的创建过程来创建不同的产品对象。</li>
+</ol>
+<h2 id="u53C2_u8003_u6587_u732E"><a href="#u53C2_u8003_u6587_u732E" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://www.cnblogs.com/chenssy/p/3307787.html" target="_blank" rel="external">设计模式读书笔记—–建造者模式</a></p>
+
+	
+	</div>
+  <a type="button" href="/2016/01/24/设计模式－创建者Builder/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -315,7 +378,7 @@
 		<h4>分类</h4>
 		<ul class="tag_box inline list-unstyled">
 		
-			<li><a href="/categories/设计模式/">设计模式<span>2</span></a></li>
+			<li><a href="/categories/设计模式/">设计模式<span>3</span></a></li>
 		
 		</ul>
 	</div>
@@ -330,11 +393,15 @@
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2016/01/24/设计模式－创建者Builder/" ><i class="fa fa-file-o"></i>设计模式－建造者Builder...</a>
+        <a href="/2016/01/30/设计模式－原型Prototype/" ><i class="fa fa-file-o"></i>设计模式－原型Prototype...</a>
       </li>
     
       <li>
-        <a href="/2016/01/23/设计模式－单类/" ><i class="fa fa-file-o"></i>设计模式－单类Singleton...</a>
+        <a href="/2016/01/24/设计模式－单类/" ><i class="fa fa-file-o"></i>设计模式－单类Singleton...</a>
+      </li>
+    
+      <li>
+        <a href="/2016/01/24/设计模式－创建者Builder/" ><i class="fa fa-file-o"></i>设计模式－建造者Builder...</a>
       </li>
     
       <li>
