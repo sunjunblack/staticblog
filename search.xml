@@ -9,32 +9,20 @@
       <content type="html"><![CDATA[<h2 id="u6A21_u5F0F_u5B9A_u4E49"><a href="#u6A21_u5F0F_u5B9A_u4E49" class="headerlink" title="模式定义"></a>模式定义</h2><p>原型模式就是用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象</p>
 <h2 id="u6A21_u5F0F_u7ED3_u6784"><a href="#u6A21_u5F0F_u7ED3_u6784" class="headerlink" title="模式结构"></a>模式结构</h2><p><img src="http://7xqe0b.com1.z0.glb.clouddn.com/FunoyWbGpFgP_XM-tcBHznoRyKVq" alt=""></p>
 <h2 id="u6A21_u5F0F_u5B9E_u73B0"><a href="#u6A21_u5F0F_u5B9E_u73B0" class="headerlink" title="模式实现"></a>模式实现</h2><p>抽象原型接口</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">Prototype</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">clone</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line">```	</span><br><span class="line"></span><br><span class="line">具体原型角色</span><br></pre></td></tr></table></figure>
-<p>public class ConcretePrototypeA implements Prototype {<br>    public Prototype clone(){<br>        //最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了<br>        Prototype prototype = new ConcretePrototypeA();<br>        return prototype;<br>    }<br>}</p>
-<p>public class ConcretePrototypeB implements Prototype {<br>    public Prototype clone(){<br>        //最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了<br>        Prototype prototype = new ConcretePrototypeB();<br>        return prototype;<br>    }<br>}<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">客户端角色</span><br></pre></td></tr></table></figure></p>
-<p>public class Client {<br>    /**</p>
-<pre><code> * 持有需要使用的原型接口对象
- */
-private Prototype prototype;
-/**
- * 构造方法，传入需要使用的原型接口对象
- */
-public Client(Prototype prototype){
-    this.prototype = prototype;
-}
-public void operation(Prototype example){
-    //需要创建原型接口的对象
-    Prototype copyPrototype = prototype.clone();
-
-}
-</code></pre><p>}<br>```</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Prototype</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line">```	</span><br><span class="line"></span><br><span class="line">具体原型角色</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototypeA</span> <span class="keyword">implements</span> <span class="title">Prototype</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Prototype <span class="title">clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了</span></span><br><span class="line">        Prototype prototype = <span class="keyword">new</span> ConcretePrototypeA();</span><br><span class="line">        <span class="keyword">return</span> prototype;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototypeB</span> <span class="keyword">implements</span> <span class="title">Prototype</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Prototype <span class="title">clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了</span></span><br><span class="line">        Prototype prototype = <span class="keyword">new</span> ConcretePrototypeB();</span><br><span class="line">        <span class="keyword">return</span> prototype;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 持有需要使用的原型接口对象</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">private</span> Prototype prototype;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 构造方法，传入需要使用的原型接口对象</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Client</span><span class="params">(Prototype prototype)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.prototype = prototype;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">(Prototype example)</span></span>&#123;</span><br><span class="line">        <span class="comment">//需要创建原型接口的对象</span></span><br><span class="line">        Prototype copyPrototype = prototype.clone();</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注：也可通过java克隆方法实现</p>
 <h2 id="u6A21_u5F0F_u4F18_u7F3A_u70B9"><a href="#u6A21_u5F0F_u4F18_u7F3A_u70B9" class="headerlink" title="模式优缺点"></a>模式优缺点</h2><blockquote>
 <p>优点</p>
 <ol>
 <li>如果创建新的对象比较复杂时，可以利用原型模式简化对象的创建过程，同时也能够提高效率。</li>
 <li>可以使用深克隆保持对象的状态。</li>
-<li>原型模式提供了简化的创建结构。<br>缺点<br>1.在实现深克隆的时候可能需要比较复杂的代码</li>
+<li>原型模式提供了简化的创建结构。</li>
+</ol>
+<p>缺点</p>
+<ol>
+<li>在实现深克隆的时候可能需要比较复杂的代码</li>
 </ol>
 </blockquote>
 <h2 id="u4F7F_u7528_u573A_u666F"><a href="#u4F7F_u7528_u573A_u666F" class="headerlink" title="使用场景"></a>使用场景</h2><ol>
