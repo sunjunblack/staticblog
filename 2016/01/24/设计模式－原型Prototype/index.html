@@ -9,7 +9,8 @@
   <meta name="description" content="模式定义原型模式就是用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象
 模式结构
 模式实现抽象原型接口
-1234567891011121314151617181920212223public interface Prototype&amp;#123;	public Object clone();">
+123public interface Prototype&amp;#123;	public Object clone();&amp;#125;
+具体原型角色pandoc123456789101112">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -113,7 +114,8 @@
 	  <h2 id="u6A21_u5F0F_u5B9A_u4E49"><a href="#u6A21_u5F0F_u5B9A_u4E49" class="headerlink" title="模式定义"></a>模式定义</h2><p>原型模式就是用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象</p>
 <h2 id="u6A21_u5F0F_u7ED3_u6784"><a href="#u6A21_u5F0F_u7ED3_u6784" class="headerlink" title="模式结构"></a>模式结构</h2><p><img src="http://7xqe0b.com1.z0.glb.clouddn.com/FunoyWbGpFgP_XM-tcBHznoRyKVq" alt=""></p>
 <h2 id="u6A21_u5F0F_u5B9E_u73B0"><a href="#u6A21_u5F0F_u5B9E_u73B0" class="headerlink" title="模式实现"></a>模式实现</h2><p>抽象原型接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Prototype</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line">```	</span><br><span class="line"></span><br><span class="line">具体原型角色</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototypeA</span> <span class="keyword">implements</span> <span class="title">Prototype</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Prototype <span class="title">clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了</span></span><br><span class="line">        Prototype prototype = <span class="keyword">new</span> ConcretePrototypeA();</span><br><span class="line">        <span class="keyword">return</span> prototype;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototypeB</span> <span class="keyword">implements</span> <span class="title">Prototype</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Prototype <span class="title">clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了</span></span><br><span class="line">        Prototype prototype = <span class="keyword">new</span> ConcretePrototypeB();</span><br><span class="line">        <span class="keyword">return</span> prototype;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Prototype</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体原型角色pandoc<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototypeA</span> <span class="keyword">implements</span> <span class="title">Prototype</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Prototype <span class="title">clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了</span></span><br><span class="line">        Prototype prototype = <span class="keyword">new</span> ConcretePrototypeA();</span><br><span class="line">        <span class="keyword">return</span> prototype;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototypeB</span> <span class="keyword">implements</span> <span class="title">Prototype</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Prototype <span class="title">clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//最简单的克隆，新建一个自身对象，由于没有属性就不再复制值了</span></span><br><span class="line">        Prototype prototype = <span class="keyword">new</span> ConcretePrototypeB();</span><br><span class="line">        <span class="keyword">return</span> prototype;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>客户端角色</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 持有需要使用的原型接口对象</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">private</span> Prototype prototype;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 构造方法，传入需要使用的原型接口对象</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Client</span><span class="params">(Prototype prototype)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.prototype = prototype;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">(Prototype example)</span></span>&#123;</span><br><span class="line">        <span class="comment">//需要创建原型接口的对象</span></span><br><span class="line">        Prototype copyPrototype = prototype.clone();</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注：也可通过java克隆方法实现</p>
@@ -148,14 +150,14 @@
 	<div class="pagination">
 <ul class="pagination">
 	 
-		
-          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
-        
+				
+    	<li class="prev"><a href="/2016/02/01/设计模式－简单工厂Simple Factory/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2016/01/24/设计模式－单类/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2016/01/23/设计模式－创建者Builder/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>
@@ -170,7 +172,7 @@
   <h2 class="title">留言</h2>
 
   
-  	 <div class="ds-thread" data-thread-key="2016/01/30/设计模式－原型Prototype/" data-title="设计模式－原型Prototype" data-url="http://sunjunblack.github.io/2016/01/30/设计模式－原型Prototype/"></div>  
+  	 <div class="ds-thread" data-thread-key="2016/01/24/设计模式－原型Prototype/" data-title="设计模式－原型Prototype" data-url="http://sunjunblack.github.io/2016/01/24/设计模式－原型Prototype/"></div>  
   
 </section>
 
@@ -184,7 +186,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2016-01-30 
+	2016-01-24 
 	</div>
 	
 
@@ -195,7 +197,7 @@
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/设计模式/">设计模式<span>3</span></a></li>
+    <li><a href="/categories/设计模式/">设计模式<span>5</span></a></li>
   </li>
 
     </ul>
