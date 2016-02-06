@@ -1,0 +1,402 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>POI深入研究－单元格Cell | sunjunblack&#39;blog</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="POI深入研究－单元格Cell环境MS Excel: 2016Apache POI: 3.13
+Cell类型在 org.apache.poi.ss.usermodel.Cell 接口中
+
+
+
+类型
+变量
+数值
+
+
+
+
+数字
+CELL_TYPE_NUMERIC
+0
+
+
+字符
+CELL_TYPE_STR">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="POI深入研究－单元格Cell"/>
+  <meta property="og:site_name" content="sunjunblack&#39;blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">sunjunblack&#39;blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> POI深入研究－单元格Cell</h1>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="POI_u6DF1_u5165_u7814_u7A76_uFF0D_u5355_u5143_u683CCell"><a href="#POI_u6DF1_u5165_u7814_u7A76_uFF0D_u5355_u5143_u683CCell" class="headerlink" title="POI深入研究－单元格Cell"></a>POI深入研究－单元格Cell</h1><h2 id="u73AF_u5883"><a href="#u73AF_u5883" class="headerlink" title="环境"></a>环境</h2><p>MS Excel: 2016<br>Apache POI: 3.13</p>
+<h2 id="Cell_u7C7B_u578B"><a href="#Cell_u7C7B_u578B" class="headerlink" title="Cell类型"></a>Cell类型</h2><p>在 org.apache.poi.ss.usermodel.Cell 接口中</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>变量</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数字</td>
+<td>CELL_TYPE_NUMERIC</td>
+<td>0</td>
+</tr>
+<tr>
+<td>字符</td>
+<td>CELL_TYPE_STRING</td>
+<td>1</td>
+</tr>
+<tr>
+<td>公式</td>
+<td>CELL_TYPE_FORMULA</td>
+<td>2</td>
+</tr>
+<tr>
+<td>空值</td>
+<td>CELL_TYPE_BLANK</td>
+<td>3</td>
+</tr>
+<tr>
+<td>布尔</td>
+<td>CELL_TYPE_BOOLEAN</td>
+<td>4</td>
+</tr>
+<tr>
+<td>错误</td>
+<td>CELL_TYPE_ERROR</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h2 id="u5B9E_u9A8C"><a href="#u5B9E_u9A8C" class="headerlink" title="实验"></a>实验</h2><p>通过设置不同值和设置不同Excel单元格类型，使用<code>getCellType()</code>方法得到类型的返回值</p>
+<table>
+<thead>
+<tr>
+<th>单元格类型</th>
+<th>原始值</th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>常规</td>
+<td>100000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>数值</td>
+<td>100000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>科学计数</td>
+<td>100000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>文本</td>
+<td>100000</td>
+<td>1</td>
+</tr>
+<tr>
+<td>日期</td>
+<td>2016/6/6</td>
+<td>0</td>
+</tr>
+<tr>
+<td>文本</td>
+<td>2016/6/6</td>
+<td>1</td>
+</tr>
+<tr>
+<td>常规</td>
+<td>999.028729</td>
+<td>0</td>
+</tr>
+<tr>
+<td>常规</td>
+<td>1000a</td>
+<td>1</td>
+</tr>
+<tr>
+<td>常规</td>
+<td></td>
+<td>3</td>
+</tr>
+<tr>
+<td>公式</td>
+<td>A1-G1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>常规</td>
+<td>false</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>总结：</p>
+<ol>
+<li>在Excel单元格为默认常规的情况下，返回类型只跟单员元格内容有关.<ol>
+<li>日期和数值返回 CELL_TYPE_NUMERIC</li>
+<li>文本返回 CELL_TYPE_STRING</li>
+<li>公式返回 CELL_TYPE_FORMULA</li>
+<li>空值返回 CELL_TYPE_BLANK</li>
+<li>布尔返回 CELL_TYPE_BOOLEAN</li>
+</ol>
+</li>
+<li>单元格为文本的情况下 常规输入日期，数字，字符，布尔都返回  CELL_TYPE_STRING</li>
+</ol>
+</blockquote>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+        
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/02/04/设计模式－抽象工厂Abstract Factory/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2016/02/06/POI深入研究－单元格Cell/" data-title="POI深入研究－单元格Cell" data-url="http://sunjunblack.github.io/2016/02/06/POI深入研究－单元格Cell/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2016-02-06 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/web开发/">web开发<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Excel/">Excel<span>1</span></a></li> <li><a href="/tags/POI/">POI<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#POI_u6DF1_u5165_u7814_u7A76_uFF0D_u5355_u5143_u683CCell"><span class="toc-article-text">POI深入研究－单元格Cell</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u73AF_u5883"><span class="toc-article-text">环境</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Cell_u7C7B_u578B"><span class="toc-article-text">Cell类型</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u5B9E_u9A8C"><span class="toc-article-text">实验</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'sunjunblack' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2016 John Doe
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
