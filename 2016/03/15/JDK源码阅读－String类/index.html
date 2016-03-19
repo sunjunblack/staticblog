@@ -3,16 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>sunjunblack&#39;blog</title>
+  <title>JDK源码阅读－String类 | sunjunblack&#39;blog</title>
   <meta name="author" content="John Doe">
   
-  <meta name="description" content="title: JDK源码阅读－String类categories: Web开发tags: [java]date: 2016-03-15toc: true
-JDK源码阅读－String类12public final class String    implements java.io.Serializ">
+  <meta name="description" content="JDK源码阅读－String类12public final class String    implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence &amp;#123;
+
+final类型，一旦创建不可改变
+
+12/** ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="JDK源码阅读－String类"/>
   <meta property="og:site_name" content="sunjunblack&#39;blog"/>
 
   
@@ -91,7 +94,7 @@ JDK源码阅读－String类12public final class String    implements java.io.Ser
 
 	
 		<div class="page-header">		
-			<h1> </h1>
+			<h1> JDK源码阅读－String类</h1>
 		</div>		
 	
 
@@ -108,8 +111,7 @@ JDK源码阅读－String类12public final class String    implements java.io.Ser
 	<div class="mypage">		
 	  		
 
-	  <p>title: JDK源码阅读－String类<br>categories: Web开发<br>tags: [java]<br>date: 2016-03-15<br>toc: true</p>
-<h1 id="JDK_u6E90_u7801_u9605_u8BFB_uFF0DString_u7C7B"><a href="#JDK_u6E90_u7801_u9605_u8BFB_uFF0DString_u7C7B" class="headerlink" title="JDK源码阅读－String类"></a>JDK源码阅读－String类</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span><br><span class="line">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+	  <h1 id="JDK_u6E90_u7801_u9605_u8BFB_uFF0DString_u7C7B"><a href="#JDK_u6E90_u7801_u9605_u8BFB_uFF0DString_u7C7B" class="headerlink" title="JDK源码阅读－String类"></a>JDK源码阅读－String类</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span><br><span class="line">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>final类型，一旦创建不可改变</p>
 </blockquote>
@@ -177,7 +179,7 @@ JDK源码阅读－String类12public final class String    implements java.io.Ser
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2016/03/19/JDK源码阅读-StringBuffer类/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+    	<li class="prev"><a href="/2016/03/18/JDK源码阅读-StringBuffer类/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
   		
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
@@ -198,7 +200,7 @@ JDK源码阅读－String类12public final class String    implements java.io.Ser
   <h2 class="title">留言</h2>
 
   
-  	 <div class="ds-thread" data-thread-key="2016/03/19/JDK源码阅读－String类/" data-title="" data-url="http://sunjunblack.github.io/2016/03/19/JDK源码阅读－String类/"></div>  
+  	 <div class="ds-thread" data-thread-key="2016/03/15/JDK源码阅读－String类/" data-title="JDK源码阅读－String类" data-url="http://sunjunblack.github.io/2016/03/15/JDK源码阅读－String类/"></div>  
   
 </section>
 
@@ -212,18 +214,42 @@ JDK源码阅读－String类12public final class String    implements java.io.Ser
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2016-03-19 
+	2016-03-15 
 	</div>
 	
 
 	<!-- categories -->
     
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Web开发/">Web开发<span>2</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
 
 	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/java/">java<span>2</span></a></li>
+    </ul>
+	</div>
 		
 
 	<!-- toc -->
 	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#JDK_u6E90_u7801_u9605_u8BFB_uFF0DString_u7C7B"><span class="toc-article-text">JDK源码阅读－String类</span></a></li></ol>
+		</div>
 	
 	</div>
 	
