@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Nginx使用指南(一) CentOS 7 安装 Nginx 1.9.5 | sunjunblack&#39;blog</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="Nginx使用指南(一) CentOS 7 安装 Nginx 1.9.5安装依赖包1yum -y install gcc gcc-c++ autoconf automake&amp;#10;yum -y install zlib zlib-devel openssl openssl-devel pcre-d">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Nginx使用指南(一) CentOS 7 安装 Nginx 1.9.5"/>
+  <meta property="og:site_name" content="sunjunblack&#39;blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">sunjunblack&#39;blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> Nginx使用指南(一) CentOS 7 安装 Nginx 1.9.5</h1>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Nginx_u4F7F_u7528_u6307_u5357_28_u4E00_29_CentOS_7__u5B89_u88C5_Nginx_1-9-5"><a href="#Nginx_u4F7F_u7528_u6307_u5357_28_u4E00_29_CentOS_7__u5B89_u88C5_Nginx_1-9-5" class="headerlink" title="Nginx使用指南(一) CentOS 7 安装 Nginx 1.9.5"></a>Nginx使用指南(一) CentOS 7 安装 Nginx 1.9.5</h1><h2 id="u5B89_u88C5_u4F9D_u8D56_u5305"><a href="#u5B89_u88C5_u4F9D_u8D56_u5305" class="headerlink" title="安装依赖包"></a>安装依赖包</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc gcc-c++ autoconf automake&#10;yum -y install zlib zlib-devel openssl openssl-devel pcre-devel</span><br></pre></td></tr></table></figure>
+<p>说明:<br><code>pcre</code>: 用来作地址重写的功能。<br><code>zlib</code>：nginx 的gzip模块,传输数据打包，省流量（但消耗资源）。<br><code>openssl</code>：提供ssl加密协议。</p>
+<h2 id="u521B_u5EFA_u7528_u6237_u53CA_u7528_u6237_u7EC4"><a href="#u521B_u5EFA_u7528_u6237_u53CA_u7528_u6237_u7EC4" class="headerlink" title="创建用户及用户组"></a>创建用户及用户组</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd -r nginx&#10;useradd -s /sbin/nologin -g nginx -r nginx</span><br></pre></td></tr></table></figure>
+<h2 id="u4E0B_u8F7D_u5E76_u89E3_u538BNginx"><a href="#u4E0B_u8F7D_u5E76_u89E3_u538BNginx" class="headerlink" title="下载并解压Nginx"></a>下载并解压Nginx</h2><p>下载地址：<a href="http://nginx.org/en/download.html" target="_blank" rel="external">http://nginx.org/en/download.html</a><br>解压下载包</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.9.2.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="u7F16_u8BD1_u5B89_u88C5"><a href="#u7F16_u8BD1_u5B89_u88C5" class="headerlink" title="编译安装"></a>编译安装</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure \&#10;--prefix=/etc/nginx \&#10;--sbin-path=/usr/sbin/nginx \&#10;--conf-path=/etc/nginx/nginx.conf \&#10;--error-log-path=/var/log/nginx/error.log \&#10;--http-log-path=/var/log/nginx/access.log \&#10;--pid-path=/var/run/nginx.pid \&#10;--lock-path=/var/run/nginx.lock \&#10;--http-client-body-temp-path=/var/cache/nginx/client_temp \&#10;--http-proxy-temp-path=/var/cache/nginx/proxy_temp \&#10;--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \&#10;--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \&#10;--http-scgi-temp-path=/var/cache/nginx/scgi_temp \&#10;--user=nginx \&#10;--group=nginx \&#10;--with-http_ssl_module \&#10;--with-http_realip_module \&#10;--with-http_addition_module \&#10;--with-http_sub_module \&#10;--with-http_dav_module \&#10;--with-http_flv_module \&#10;--with-http_mp4_module \&#10;--with-http_gunzip_module \&#10;--with-http_gzip_static_module \&#10;--with-http_random_index_module \&#10;--with-http_secure_link_module \&#10;--with-http_stub_status_module \&#10;--with-http_auth_request_module \&#10;--with-mail \&#10;--with-mail_ssl_module \&#10;--with-file-aio \&#10;--with-ipv6 \&#10;--with-http_v2_module \&#10;--with-cc-opt=&#39;-O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &#38;&#38; make install</span><br></pre></td></tr></table></figure>
+<h2 id="u542F_u52A8Nginx"><a href="#u542F_u52A8Nginx" class="headerlink" title="启动Nginx"></a>启动Nginx</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+<h2 id="u547D_u4EE4_u53C2_u6570"><a href="#u547D_u4EE4_u53C2_u6570" class="headerlink" title="命令参数"></a>命令参数</h2><p><code>-c</code> 配置文件路径<br><code>-t</code> 检测配置文件<br><code>-v</code> 显示版本<br><code>-V</code> 显示编译环境信息以及编译时的参数<br><code>-g</code>    设置全局指令</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2016/03/04/Nginx使用指南(二)/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/02/06/POI深入研究－单元格Cell/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2016/03/02/Nginx使用指南(一)/" data-title="Nginx使用指南(一) CentOS 7 安装 Nginx 1.9.5" data-url="http://sunjunblack.github.io/2016/03/02/Nginx使用指南(一)/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2016-03-02 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Nginx/">Nginx<span>4</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Nginx/">Nginx<span>4</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Nginx_u4F7F_u7528_u6307_u5357_28_u4E00_29_CentOS_7__u5B89_u88C5_Nginx_1-9-5"><span class="toc-article-text">Nginx使用指南(一) CentOS 7 安装 Nginx 1.9.5</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u5B89_u88C5_u4F9D_u8D56_u5305"><span class="toc-article-text">安装依赖包</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u521B_u5EFA_u7528_u6237_u53CA_u7528_u6237_u7EC4"><span class="toc-article-text">创建用户及用户组</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u4E0B_u8F7D_u5E76_u89E3_u538BNginx"><span class="toc-article-text">下载并解压Nginx</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u7F16_u8BD1_u5B89_u88C5"><span class="toc-article-text">编译安装</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u542F_u52A8Nginx"><span class="toc-article-text">启动Nginx</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#u547D_u4EE4_u53C2_u6570"><span class="toc-article-text">命令参数</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'sunjunblack' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2016 John Doe
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

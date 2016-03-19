@@ -1,0 +1,292 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Nginx使用指南(三) Rewrite | sunjunblack&#39;blog</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="Nginx使用指南(三) Rewrite">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Nginx使用指南(三) Rewrite"/>
+  <meta property="og:site_name" content="sunjunblack&#39;blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">sunjunblack&#39;blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> Nginx使用指南(三) Rewrite</h1>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Nginx_u4F7F_u7528_u6307_u5357_28_u4E09_29_Rewrite"><a href="#Nginx_u4F7F_u7528_u6307_u5357_28_u4E09_29_Rewrite" class="headerlink" title="Nginx使用指南(三) Rewrite"></a>Nginx使用指南(三) Rewrite</h1><a id="more"></a>
+<h3 id="u673A_u5236"><a href="#u673A_u5236" class="headerlink" title="机制"></a>机制</h3><p>使用rewrite模块通过正则表达式(PCRE)就可以重定向URI,并且可以根据条件(变量)选择配置执行。如果在server级别执行rewrite指令，请求将在localtion确定之前执行。如果location级别仍有rewrite指令，那么就会再次改变URI.这种重复<code>周期为10次</code>。如果10次后仍然找不到最终的URI,那么Nginx将返回<code>500</code>错误。</p>
+<h3 id="u6307_u4EE4"><a href="#u6307_u4EE4" class="headerlink" title="指令"></a>指令</h3><p><strong>break 指令</strong><br>使用环境:    server, location, if<br>功能:    完成当前的规则集，不在处理rewrite指令。</p>
+<p><strong>if 指令</strong><br>使用环境: server, location<br>功能:    该指令用于检查一个条件是否符合，如果条件符合，则执行大括号内的语句。if指令不支持嵌套和多条件判断。</p>
+<ul>
+<li>使用 <code>=</code> 或 <code>!=</code> 操作符比较变量的表达式    <ul>
+<li><code>~</code>    执行区分大小写匹配</li>
+<li><code>~*</code> 执行不区分大小写匹配</li>
+<li><code>!~</code> 执行区分大小写不匹配</li>
+<li><code>!~*</code> 执行区不分大小写不匹配</li>
+</ul>
+</li>
+<li>使用 <code>-f</code> 或者 <code>!-f</code> 操作符检测文件的存在性</li>
+<li>使用 <code>-d</code> 或者 <code>!-d</code> 操作符检测目录的存在性</li>
+<li>使用 <code>-e</code> 或者 <code>!-e</code> 操作符检测文件，目录或者符号链接的存在性</li>
+<li>使用 <code>-x</code> 或者 <code>!-x</code> 操作符检测文件是否可执行</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#如果客户端使用的是IE浏览器则重定向到/ie目录下</span><br><span class="line">if( $http_user_agent  ~ MSIE)</span><br><span class="line">&#123;</span><br><span class="line">	rewrite ^(.*)$ /ie/$1 break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>return 指令</strong><br>使用环境: server, location, if<br>功能:    该指令用于结束规则的执行并返回状态码给客户端</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#如果访问的URL以".sh"或".bash"结尾则返回403状态码</span></span><br><span class="line"><span class="title">location</span> <span class="regexp">~ .*\.(sh|bash)?$</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="title">return</span> <span class="number">403</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>rewrite 指令</strong><br>使用环境: server, location, if<br>功能:    该指令用于根据正则表达式重定向URI。</p>
+<ul>
+<li><code>last</code>    表示rewrite , 在根location使用比较好</li>
+<li><code>break</code> 表示本条规则匹配完成后，终止匹配。一般非根的location中配置rewrite中使用</li>
+<li><code>redirect</code> 返回302临时重定向，浏览器显示跳转URL</li>
+<li><code>permanent</code> 返回301永久重定向，浏览器显示跳转URL</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#跨域重写URL改变</span></span><br><span class="line"><span class="title">location</span> /test/ &#123;</span><br><span class="line">	<span class="title">rewrite</span><span class="regexp"> ^/test/(.*)$</span> /aaa/<span class="variable">$1</span> <span class="built_in">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>rewrite_log 指令</strong><br>使用环境: http, server, location, if<br>功能:    该指令用于开启或关闭rewrite日志。日志级别为Notice并 记录在error_log配置路径中。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#开启重写日志</span></span><br><span class="line"><span class="title">rewrite_log</span> <span class="built_in">on</span>;</span><br><span class="line"><span class="title">error_log</span> /var/log/nginx/rewrite.log <span class="built_in">notice</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>set 指令</strong><br>使用环境: server, location, if<br>功能:    该指令用于定义一个变量，并给变量赋值。</p>
+<p><strong>break与last区别</strong><br>使用last会对server标签重新发起请求，而break就直接使用当前的location中的数据源来访问，要视情况加以使用。一般在非根的location中配置rewrite，都是用的break；而根的location使用last比较好，因为如果配置了fastcgi或代理访问jsp文件的话，在根location下用break是访问不到。</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2016/03/09/Nginx使用指南(四)/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/03/04/Nginx使用指南(二)/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2016/03/07/Nginx使用指南(三)/" data-title="Nginx使用指南(三) Rewrite" data-url="http://sunjunblack.github.io/2016/03/07/Nginx使用指南(三)/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2016-03-07 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Nginx/">Nginx<span>4</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Nginx/">Nginx<span>4</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Nginx_u4F7F_u7528_u6307_u5357_28_u4E09_29_Rewrite"><span class="toc-article-text">Nginx使用指南(三) Rewrite</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#u673A_u5236"><span class="toc-article-text">机制</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#u6307_u4EE4"><span class="toc-article-text">指令</span></a></li></ol></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'sunjunblack' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2016 John Doe
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
